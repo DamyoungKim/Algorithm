@@ -10,6 +10,7 @@ import java.util.Deque;
 import java.util.StringTokenizer;
 
 public class Main_5430_AC {
+	// deque를 활용한 풀이
 	static int N, start, end;
 	static boolean reverse;
 	static Deque<Integer> dq;
@@ -87,6 +88,8 @@ public class Main_5430_AC {
 	}
 	
 /*
+ * 
+ // 배열 인덱스를 활용한 풀이
 	static int N, start, end;
 	static boolean reverse;
 	public static void main(String[] args) throws IOException {
