@@ -59,11 +59,6 @@ public class Main_6568_귀도반로썸은크리스마스날심심하다고파이
 		}
 	}
 
-	private static int toInt(String s) {
-		return (s.charAt(4) - '0') + (s.charAt(3) - '0') * 2 + (s.charAt(2) - '0') * 4 + (s.charAt(1) - '0') * 8
-				+ (s.charAt(0) - '0') * 16;
-	}
-
 	private static void print(int adder) {
 		StringBuffer sb = new StringBuffer();
 		String s = Integer.toBinaryString(adder);
