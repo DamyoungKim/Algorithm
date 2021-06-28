@@ -30,13 +30,13 @@ public class Main_1113_수영장만들기 {
 				arr[i][j] = s.charAt(j) - '0';
 			}
 		}
-
-		for (int i = 2; i <= 9; i++) {
-			visited = new boolean[N][M];
+		
+		for (int i = 2; i <= 9; i++) { // 채울수 있는 물에 높이 2 ~ 9
+			visited = new boolean[N][M]; // 높이가 달라질때마다 visited 배열을 초기화
 			for(int y = 0; y < N; y++) {
 				for (int x = 0; x < M; x++) {
-					
-					if(visited[y][x] || arr[y][x] >= i) continue;
+					if(visited[y][x] || arr[y][x] >= i) continue; // 이미 처리되었거나 (visted)
+																  // 물을 채울수 없으면 (arr >= i)
 					q = new LinkedList<>();
 					visited[y][x] = true;
 					q.offer(new int[] {y, x});
@@ -65,8 +65,8 @@ public class Main_1113_수영장만들기 {
 				if(ny >= N || nx >= M || ny < 0 || nx < 0) {
 					check = true;
 					continue;
-				}
-				if(arr[ny][nx] < h && !visited[ny][nx]) {	
+				} // 해당 높이에 물을 채우다보니 물이 흘러 넘칠 경우 발생
+				if(arr[ny][nx] < h && !visited[ny][nx]) { // 설정 높이 보다 작은곳에 물 채울수 있다.	
 					cnt++;
 					visited[ny][nx] = true;
 					q.offer(new int[] {ny, nx});
@@ -74,7 +74,7 @@ public class Main_1113_수영장만들기 {
 			}
 		}
 		
-		if(!check ) {
+		if(!check ) { // 테두리에 있는 영역이 없다.
 			result += cnt;
 		}
 
