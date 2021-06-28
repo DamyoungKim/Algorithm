@@ -43,7 +43,6 @@ public class Main_1113_수영장만들기 {
 					bfs(i);
 				}
 			}
-			
 		}
 		System.out.println(result);
 
@@ -73,7 +72,6 @@ public class Main_1113_수영장만들기 {
 				}
 			}
 		}
-		
 		if(!check ) { // 테두리에 있는 영역이 없다.
 			result += cnt;
 		}
@@ -81,3 +79,4 @@ public class Main_1113_수영장만들기 {
 	}
 
 }
+
