@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class Main_6497_전력난 {
+public class Main_6497_전력난 { // Prim
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -15,9 +15,9 @@ public class Main_6497_전력난 {
 			st = new StringTokenizer(br.readLine());
 			int n = Integer.parseInt(st.nextToken());
 			int m = Integer.parseInt(st.nextToken());
-			if (n == 0 && m == 0)
+			if (n == 0 && m == 0) // 종료 조건
 				break;
-			ArrayList<int[]>[] adj = new ArrayList[n];
+			ArrayList<int[]>[] adj = new ArrayList[n]; // 인접 리스트 
 			int[] minEdge = new int[n];
 
 			for (int i = 0; i < n; i++) {
@@ -31,7 +31,7 @@ public class Main_6497_전력난 {
 				int x = Integer.parseInt(st.nextToken());
 				int y = Integer.parseInt(st.nextToken());
 				int z = Integer.parseInt(st.nextToken());
-				result += z;
+				result += z; // 문제에서 절약할 수 있는 최대 액수라 하였기 때문에 불을 모두 켰을 때의 값이 필요
 				adj[x].add(new int[] { y, z });
 				adj[y].add(new int[] { x, z });
 			}
@@ -50,7 +50,7 @@ public class Main_6497_전력난 {
 					}
 				}
 
-				result -= min;
+				result -= min; // 최소 비용(최소 거리) 값을 빼줌 --> 절약한 비용
 				visited[minVertex] = true;
 
 				for (int i = 0; i < adj[minVertex].size(); i++) {
