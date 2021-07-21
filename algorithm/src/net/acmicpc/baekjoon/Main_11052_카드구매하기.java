@@ -22,7 +22,7 @@ public class Main_11052_카드구매하기 {
 		
 		for(int i = 2; i < N + 1; i++) {
 			int temp = 0;
-			for(int j = 1; j < i; j++) {
+			for(int j = 1; j <=  i / 2; j++) {
 				temp = Math.max(temp, dp[i - j] + dp[j]);
 			}
 			dp[i] = Math.max(temp, arr[i]);
