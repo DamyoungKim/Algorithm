@@ -13,7 +13,7 @@ public class Main_21608_상어초등학교 {
 		order = new int[N * N];
 		resultArr = new int[N][N];
 		for(int i = 0; i < N * N; i++) {
-			order[i] = sc.nextInt();
+			order[i] = sc.nextInt(); 
 			for(int j = 0; j < 4; j++) {
 				arr[order[i]][j] = sc.nextInt();
 			}
