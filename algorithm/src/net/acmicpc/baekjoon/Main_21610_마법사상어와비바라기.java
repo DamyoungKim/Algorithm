@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main_21610_마법사상어와비바라기 {
-	static class Cloud {
+	static class Cloud { 
 		int y;
 		int x;
 		
