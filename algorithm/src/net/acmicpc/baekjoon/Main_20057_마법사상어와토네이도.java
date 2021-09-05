@@ -22,7 +22,7 @@ public class Main_20057_마법사상어와토네이도 {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < N; j++) {
 				arr[i][j] = Integer.parseInt(st.nextToken());
-			} 
+			}
 		}
 		int dir = 0, len = 1, y = N / 2, x = N / 2;
 		while(true) {
