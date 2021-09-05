@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main_20056_마법사상어와파이어볼 {
@@ -30,11 +32,10 @@ public class Main_20056_마법사상어와파이어볼 {
 			this.c = (this.c + dc[d] * s + N) % N;
 			arr[this.r][this.c].add(this);
 		}
-
 	}
 
 	static int N, M, K;
-	static List<FireBall> list = new ArrayList<>();
+	static Queue<FireBall>  q = new LinkedList<>();
 	static int[] dc = { 0, 1, 1, 1, 0, -1, -1, -1 }, dr = { -1, -1, 0, 1, 1, 1, 0, -1 };
 	static ArrayList<FireBall>[][] arr;
 
@@ -57,31 +58,30 @@ public class Main_20056_마법사상어와파이어볼 {
 			int m = Integer.parseInt(st.nextToken());
 			int s = Integer.parseInt(st.nextToken());
 			int d = Integer.parseInt(st.nextToken());
-			list.add(new FireBall(r, c, m, s, d));
+			q.add(new FireBall(r, c, m, s, d));
 		}
 		for (int i = 0; i < K; i++) {
 			move();
 			setting();
 		}
 		int result = 0;
-		for (int i = 0; i < list.size(); i++) {
-			result += list.get(i).m;
+		for (int i = 0, size = q.size(); i < size; i++) {
+			result += q.poll().m;
 		}
 		System.out.println(result);
 	}
 
 	private static void move() {
-		for (int i = 0; i < list.size(); i++) {
-			list.get(i).move();
+		for (int i = 0, size = q.size(); i < size; i++) {
+			q.poll().move();
 		}
 	}
 
 	private static void setting() {
-		list = new ArrayList<>();
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				if (arr[i][j].size() == 1) {
-					list.add(arr[i][j].get(0));
+					q.add(arr[i][j].get(0));
 				} else if (arr[i][j].size() >= 2) {
 					fusion(i, j);
 				}
@@ -109,7 +109,7 @@ public class Main_20056_마법사상어와파이어볼 {
 			return;
 
 		for (int j = oddCnt == 0 || evenCnt == 0 ? 0 : 1; j < 8; j += 2) {
-			list.add(new FireBall(r, c, sumM / 5, sumS / temp.size(), j));
+			q.add(new FireBall(r, c, sumM / 5, sumS / temp.size(), j));
 		}
 	}
 }
