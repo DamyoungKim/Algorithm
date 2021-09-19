@@ -8,7 +8,7 @@ public class Main_1062_가르침 {
 	static int N, K, max;
 	static String[] arr;
 	static int[] selected;
-	static boolean[] visited;
+	static int mask = 0;
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -17,7 +17,6 @@ public class Main_1062_가르침 {
 		
 		arr = new String[N];
 		selected = new int[K];
-		visited = new boolean['z' - 'a' + 1];
 		for (int i = 0; i < N; i++) {
 			arr[i] = br.readLine();
 		}
@@ -26,21 +25,22 @@ public class Main_1062_가르침 {
 			return;
 		}
 		K -= 5;
-		visited['a' - 'a'] = true;
-		visited['n' - 'a'] = true;
-		visited['t' - 'a'] = true;
-		visited['i' - 'a'] = true;
-		visited['c' - 'a'] = true;
-		solve(0, 'b');
+		int mask = 0;
+		mask |= 1 << ('a' - 'a');
+		mask |= 1 << ('n' - 'a');
+		mask |= 1 << ('t' - 'a');
+		mask |= 1 << ('i' - 'a');
+		mask |= 1 << ('c' - 'a');
+		solve(0, 'b', mask);
 		System.out.println(max);
 	}
-	private static void solve(int cnt, int start) {
+	private static void solve(int cnt, int start, int mask) {
 		if(cnt == K) {
 			int count = 0;
 			for (int i = 0; i < N; i++) {
 				boolean check = true;
 				for (int j = 0; j < arr[i].length(); j++) {
-					if(!visited[arr[i].charAt(j) - 'a']) {
+					if((mask & (1 << (arr[i].charAt(j) - 'a'))) == 0){
 						check = false;
 						break;
 					}
@@ -52,11 +52,8 @@ public class Main_1062_가르침 {
 			return;
 		}
 		for (int i = start; i <= 'z'; i++) {
-			if(visited[i - 'a']) continue;
-			visited[i - 'a'] = true;
-			selected[cnt] = i;
-			solve(cnt + 1, i + 1);
-			visited[i - 'a'] = false;
+			if((mask & (1 << (i - 'a'))) != 0) continue;
+			solve(cnt + 1, i + 1, mask | (1 << (i - 'a')));
 		}
 	}
 }
