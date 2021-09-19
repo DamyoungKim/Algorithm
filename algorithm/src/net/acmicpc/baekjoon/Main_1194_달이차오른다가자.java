@@ -10,65 +10,25 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main_1194_달이차오른다가자 {
-	static class Man {
+	static class Node {
 		int y;
 		int x;
-		List<Key> keys;
-		boolean[][] visited;
+		int key;
 		
-		public Man(int y, int x, boolean[][] visited) {
+		public Node(int y, int x, int key) {
 			super();
 			this.y = y;
 			this.x = x;
-			this.visited = visited;
-		}
-		
-		public Man(int y, int x, boolean[][] visited, List<Key> list) {
-			this(y, x, visited);
-			this.keys = list;
-		}
-		
-		public Man(int y, int x, List<Key> list, Key key) {
-			this.y = y;
-			this.x = x;
-			
-			this.keys = new ArrayList<>();
-			for (int i = 0; i < list.size(); i++) {
-				this.keys.add(list.get(i));
-			}
-			this.keys.add(key);
-			
-			this.visited = new boolean[N][M];
-			for (int i = 0; i < this.keys.size(); i++) {
-				this.visited[this.keys.get(i).y][this.keys.get(i).x] = true;
-			}
+			this.key = key;
 		}
 	}
-	
-	static class Key {
-		int y;
-		int x;
-		int val;
-		
-		public Key(int y, int x, int val) {
-			super();
-			this.y = y;
-			this.x = x;
-			this.val = val;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			Key key = (Key) obj;
-			if(this.y == key.y && this.x == key.x) return true;
-			else return false;
-		}
-	}
-	static int N, M, min = Integer.MAX_VALUE;
+	static int N, M, result = -1;
 	static char[][] arr;
 	static int[] dx = {0, 1, 0, -1}, dy = {-1, 0, 1, 0};
-	static Queue<Man> q = new LinkedList<>();
+	static Queue<Node> q = new LinkedList<>();
+	static boolean[][][] visited; 
 	public static void main(String[] args) throws IOException {
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		
@@ -76,8 +36,8 @@ public class Main_1194_달이차오른다가자 {
 		M = Integer.parseInt(st.nextToken());
 		
 		arr = new char[N][M];
-		int x = 0;
-		int y = 0;
+		visited = new boolean[N][M][(int) Math.pow(2, 'f' - 'a' + 1)];
+		
 
 		for (int i = 0; i < N; i++) {
 			String s =br.readLine();
@@ -85,17 +45,13 @@ public class Main_1194_달이차오른다가자 {
 				char c = s.charAt(j);
 				arr[i][j] = c;
 				if (c == '0') {
-					y = i;
-					x = j;
+					q.offer(new Node(i, j, 0));
+					visited[i][j][0] = true;
 				}
 			}
 		}
-		boolean[][] visited = new boolean[N][M];
-		visited[y][x] = true;
-		List<Key> keys = new ArrayList<>();
-		q.offer(new Man(y, x, visited, keys));
 		solve();
-		System.out.println(min == Integer.MAX_VALUE ? -1 : min);
+		System.out.println(result);
 	}
 	private static void solve() {
 		int cnt = 0;
@@ -103,43 +59,33 @@ public class Main_1194_달이차오른다가자 {
 			int size = q.size();
 			cnt++;
 			for (int s = 0; s < size; s++) {
-				Man man = q.poll();
+				Node node = q.poll();
 				for (int d = 0; d < 4; d++) {
-					int ny = man.y + dy[d];
-					int nx = man.x + dx[d];
-					
-					boolean[][] visited = man.visited;
-					List<Key> keys = man.keys;
-					if(ny >= N || nx >= M || ny < 0 || nx < 0 || visited[ny][nx] || arr[ny][nx] == '#') continue;
+					int ny = node.y + dy[d];
+					int nx = node.x + dx[d];
+					int key = node.key;
+					if(ny >= N || nx >= M || ny < 0 || nx < 0 || visited[ny][nx][key] || arr[ny][nx] == '#') continue;
 					
 					if(arr[ny][nx] == '1') {
-						min = cnt;
+						result = cnt;
 						return;
 					}
 					
 					if('A' <= arr[ny][nx] && arr[ny][nx] <= 'F') {
-						if (hadKey(keys, arr[ny][nx])) {
-							visited[ny][nx] = true;
-							q.offer(new Man(ny, nx, visited, keys));
+						if ((key & 1 << (arr[ny][nx] - 'A')) !=  0) {
+							visited[ny][nx][key] = true;
+							q.offer(new Node(ny, nx, key));
 						}
 					} else if ('a' <= arr[ny][nx] && arr[ny][nx] <= 'f') {
-						q.offer(new Man(ny, nx, keys, new Key(ny, nx, arr[ny][nx])));
+						key = key | 1 << (arr[ny][nx] - 'a');
+						visited[ny][nx][key] = true;
+						q.offer(new Node(ny, nx, key));
 					} else {
-						visited[ny][nx] = true;
-						q.offer(new Man(ny, nx, visited, keys));
+						visited[ny][nx][key] = true;
+						q.offer(new Node(ny, nx, key));
 					}
-					
 				}
 			}
 		}
 	}
-	
-	
-	private static boolean hadKey(List<Key> keys, char val) {
-		for(int i = 0; i < keys.size(); i++) {
-			if(keys.get(i).val == val + 'a' - 'A') return true;
-		}
-		return false;
-	}
-	
 }
