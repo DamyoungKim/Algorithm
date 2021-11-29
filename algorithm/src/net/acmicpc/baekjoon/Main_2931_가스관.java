@@ -93,8 +93,9 @@ public class Main_2931_가스관 {
 				}
 			} else {
 				int next = charToInt(arr[ny][nx]);
-				if (next == 7 && cnt == 0) return true;
-				if(pipe[next][(out + 2) % 4]) {
+				if (next == 7) {
+					if (cnt == 0) return true;
+				} else if(pipe[next][(out + 2) % 4]) {
 					if (solve(ny, nx, out, cnt)) return true;
 					visited[ny][nx][(out + 2) % 4] = false;
 				} 
@@ -143,8 +144,11 @@ public class Main_2931_가스관 {
 				if (pipe[cur][out]) return false;
 				continue;
 			}
-			if (arr[ny][nx] == '.' && pipe[cur][out]) return false;
-			else if (arr[ny][nx] != '.' && arr[ny][nx] != 'Z' && arr[ny][nx] != 'M'){
+			if (arr[ny][nx] == '.' && pipe[cur][out]) {
+				return false;
+			} else if (arr[ny][nx] == 'Z' || arr[ny][nx] == 'M') {
+				if (pipe[cur][out]) return false;
+			} else if (arr[ny][nx] != '.') {
 				int next = charToInt(arr[ny][nx]);
 				if (pipe[next][(out + 2 ) % 4] && !pipe[cur][out]) return false;
 			}
@@ -158,7 +162,7 @@ public class Main_2931_가스관 {
 Z.1----4..
 |.|....|..
 |.|14..M..
-.-+++4....
+2-.++4....
 ..2323....
 ..........
  * */
