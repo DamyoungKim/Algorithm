@@ -25,7 +25,7 @@ public class Main_2089_마이너스2진수 {
 					N = divN + 1;
 					sb.append(1);
 				}
-			} 
+			}
 		}
 		sb.append(1);
 		System.out.println(sb.reverse());
