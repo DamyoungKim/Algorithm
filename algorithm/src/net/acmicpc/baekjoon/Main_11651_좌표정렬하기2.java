@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-public class Main_11650_좌표정렬하기 {
+public class Main_11651_좌표정렬하기2 {
 	static class Node implements Comparable<Node>{
 		int x;
 		int y;
@@ -17,11 +17,12 @@ public class Main_11650_좌표정렬하기 {
 		}
 		@Override
 		public int compareTo(Node that) {
-			if (this.y == that.y) {
-				return this.x - that.x;
+			if (this.x == that.x) {
+				return this.y - that.y;
 			}
-			return this.y - that.y;
+			return this.x - that.x;
 		}
+		
 	
 	}
 	public static void main(String[] args) throws IOException{
