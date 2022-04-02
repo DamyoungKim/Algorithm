@@ -3,7 +3,9 @@ package net.acmicpc.baekjoon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.PriorityQueue;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main_10825_국영수 {
@@ -31,20 +33,20 @@ public class Main_10825_국영수 {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(br.readLine());
-		PriorityQueue<Node> pq = new PriorityQueue<Node>();
+		List<Node> list = new ArrayList<>();
 		for (int i = 0; i < N; i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
-			pq.offer(new Node(
+			list.add(new Node(
 						st.nextToken(),
 						Integer.parseInt(st.nextToken()),
 						Integer.parseInt(st.nextToken()),
 						Integer.parseInt(st.nextToken())
 					));
 		}
-		
+		Collections.sort(list);
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < N; i++) {
-			sb.append(pq.poll().name + '\n');
+			sb.append(list.get(i).name + '\n');
 		}
 		System.out.println(sb);
 	}
